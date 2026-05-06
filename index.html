@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hanns Niedermark — Data and AI professional transitioning into conservation, climate, and social impact work.">
+  <meta property="og:title" content="Hanns Niedermark">
+  <meta property="og:description" content="Data and AI practitioner moving into conservation and climate impact.">
+  <meta property="og:url" content="https://hannsniedermark.com">
+  <title>Hanns Niedermark</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1a16;
+      --ink2: #4a4a42;
+      --ink3: #8a8a7e;
+      --paper: #f5f2eb;
+      --paper2: #eeeae0;
+      --white: #ffffff;
+      --accent: #2d5a3d;
+      --accent-light: #e8f0eb;
+      --accent2: #c8a96e;
+      --rule: rgba(26,26,22,0.1);
+      --serif: 'DM Serif Display', Georgia, serif;
+      --mono: 'DM Mono', 'Courier New', monospace;
+      --sans: 'Instrument Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 56px 40px 100px;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 64px;
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+    }
+    .topbar-domain {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--ink3);
+    }
+    .topbar-nav { display: flex; gap: 20px; }
+    .topbar-nav a {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--ink3);
+      text-decoration: none;
+      text-transform: lowercase;
+      transition: color 0.15s;
+    }
+    .topbar-nav a:hover { color: var(--accent); }
+
+    /* ── Hero ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 148px;
+      gap: 0 40px;
+      margin-bottom: 72px;
+      align-items: start;
+    }
+    .hero-text {}
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      opacity: 0;
+      animation: fadeUp 0.5s ease 0.08s forwards;
+    }
+    .hero-name {
+      font-family: var(--serif);
+      font-size: clamp(48px, 9vw, 72px);
+      line-height: 0.95;
+      color: var(--ink);
+      letter-spacing: -0.025em;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.14s forwards;
+    }
+    .hero-name em { color: var(--accent); font-style: italic; }
+    .hero-tagline {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--ink2);
+      max-width: 480px;
+      padding-left: 18px;
+      border-left: 2px solid var(--accent2);
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.22s forwards;
+    }
+    .hero-photo {
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.18s forwards;
+      flex-shrink: 0;
+    }
+    .hero-photo img {
+      width: 148px;
+      height: 148px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      border: 3px solid var(--white);
+      box-shadow: 0 0 0 1px var(--rule);
+    }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1px;
+      background: var(--rule);
+      margin: 0 0 52px;
+      opacity: 0;
+    }
+    .divider.visible { animation: fadeIn 0.4s ease forwards; }
+
+    /* ── Section grid ── */
+    .section {
+      display: grid;
+      grid-template-columns: 148px 1fr;
+      gap: 0 36px;
+      margin-bottom: 52px;
+      opacity: 0;
+    }
+    .section.visible { animation: fadeUp 0.6s ease forwards; }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: var(--ink3);
+      text-transform: uppercase;
+      padding-top: 4px;
+      line-height: 1.4;
+    }
+
+    /* ── About ── */
+    .about-body p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--ink2);
+      margin-bottom: 16px;
+    }
+    .about-body p:last-child { margin-bottom: 0; }
+    .about-body strong { color: var(--ink); font-weight: 500; }
+
+    /* ── Currently ── */
+    .currently-list { display: flex; flex-direction: column; gap: 8px; }
+    .ci {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 14px 18px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .ci:hover {
+      border-color: rgba(45,90,61,0.25);
+      box-shadow: 0 2px 12px rgba(45,90,61,0.06);
+    }
+    .ci-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 5px; flex-shrink: 0;
+      position: relative;
+    }
+    .ci-dot.pulse::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      border: 1.5px solid var(--accent);
+      opacity: 0;
+      animation: ripple 2s ease-out infinite;
+    }
+    .ci-dot.gold { background: var(--accent2); }
+    .ci-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; line-height: 1.4; }
+    .ci-sub { font-size: 12px; color: var(--ink3); line-height: 1.55; }
+
+    /* ── Skills ── */
+    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .skill-card {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 16px 18px;
+      transition: border-color 0.2s;
+    }
+    .skill-card:hover { border-color: rgba(45,90,61,0.3); }
+    .skill-headline { font-size: 13px; font-weight: 500; color: var(--accent); margin-bottom: 5px; line-height: 1.3; }
+    .skill-desc { font-size: 12px; color: var(--ink3); line-height: 1.6; }
+
+    /* ── Project ── */
+    .project-card {
+      background: var(--accent);
+      border-radius: 12px;
+      padding: 24px 26px;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+    .project-tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 10px;
+    }
+    .project-name {
+      font-family: var(--serif);
+      font-size: 24px;
+      color: white;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .project-desc {
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.78);
+      margin-bottom: 16px;
+    }
+    .pills { display: flex; flex-wrap: wrap; gap: 6px; }
+    .pill {
+      font-size: 11px;
+      background: rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.82);
+      border-radius: 20px;
+      padding: 4px 12px;
+    }
+
+    /* ── Looking for ── */
+    .looking-intro {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--ink2);
+      margin-bottom: 14px;
+    }
+    .looking-intro strong { color: var(--ink); font-weight: 500; }
+    .looking-list { display: flex; flex-direction: column; gap: 7px; }
+    .looking-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--ink2);
+      line-height: 1.55;
+      padding: 10px 14px;
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+    }
+    .looking-arrow { color: var(--accent2); font-size: 13px; flex-shrink: 0; margin-top: 2px; }
+
+    /* ── CTA ── */
+    .cta {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: 14px;
+      padding: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 48px;
+      opacity: 0;
+    }
+    .cta.visible { animation: fadeUp 0.6s ease forwards; }
+    .cta-title { font-family: var(--serif); font-size: 24px; color: var(--ink); margin-bottom: 8px; }
+    .cta-sub { font-size: 13px; color: var(--ink3); line-height: 1.6; }
+    .cta-buttons { display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      padding: 9px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.18s;
+      white-space: nowrap;
+    }
+    .btn-primary { background: var(--accent); color: white; border: 1px solid var(--accent); }
+    .btn-primary:hover { background: #234a31; }
+    .btn-secondary { background: transparent; color: var(--ink2); border: 1px solid var(--rule); }
+    .btn-secondary:hover { background: var(--paper2); border-color: rgba(26,26,22,0.2); }
+
+    /* ── Footer ── */
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 24px;
+      border-top: 1px solid var(--rule);
+      opacity: 0;
+    }
+    .footer.visible { animation: fadeIn 0.5s ease forwards; }
+    .footer-copy { font-family: var(--mono); font-size: 10px; color: var(--ink3); letter-spacing: 0.06em; }
+    .footer-loc { font-family: var(--mono); font-size: 10px; color: var(--ink3); letter-spacing: 0.06em; }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes ripple {
+      0%   { transform: scale(1); opacity: 0.6; }
+      100% { transform: scale(2.5); opacity: 0; }
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 580px) {
+      .page { padding: 32px 20px 72px; }
+      .hero { grid-template-columns: 1fr; gap: 28px 0; }
+      .hero-photo { order: -1; }
+      .hero-photo img { width: 96px; height: 96px; }
+      .section { grid-template-columns: 1fr; gap: 12px 0; }
+      .section-label { padding-top: 0; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .cta { flex-direction: column; align-items: flex-start; }
+      .cta-buttons { flex-direction: row; flex-wrap: wrap; }
+      .topbar-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+
+    <div class="topbar">
+      <span class="topbar-domain">hannsniedermark.com</span>
+      <nav class="topbar-nav">
+        <a href="#about">about</a>
+        <a href="#work">work</a>
+        <a href="#contact">contact</a>
+      </nav>
+    </div>
+
+    <section class="hero" id="about">
+      <div class="hero-text">
+        <div class="hero-eyebrow">Data · AI · Conservation impact</div>
+        <h1 class="hero-name">Hanns<br><em>Niedermark</em></h1>
+        <p class="hero-tagline">I build data systems and AI frameworks that help organisations make better decisions. Now applying that to conservation, climate, and social development.</p>
+      </div>
+      <div class="hero-photo">
+        <img src="hanns.jpg" alt="Hanns Niedermark" />
+      </div>
+    </section>
+
+    <div class="divider" id="d1"></div>
+
+    <div class="section" id="s-about">
+      <div class="section-label">Background</div>
+      <div class="about-body">
+        <p>Most recently <strong>Data Product Owner at Bloomberg</strong>, where I built AI evaluation frameworks and led a data operations team of 27 — designing labelling strategy, structuring quality pipelines, and informing CEO- and CTO-level product decisions. I scaled Bloomberg's flagship AI product, AskB, from 17 to over 100,000 users.</p>
+        <p>Before that I held analyst and team leadership roles across fintech and operations in London, and earlier in my career I lived and worked in Hong Kong, Germany, and Australia. I hold an MSc-equivalent in AI and Data Science from Cambridge Spark and a BBA from Hult International Business School.</p>
+        <p>I left Bloomberg to make a deliberate move — toward work connected to real problems in the world.</p>
+      </div>
+    </div>
+
+    <div class="divider" id="d2"></div>
+
+    <div class="section" id="s-currently">
+      <div class="section-label">Right now</div>
+      <div class="currently-list">
+        <div class="ci">
+          <div class="ci-dot pulse"></div>
+          <div>
+            <div class="ci-title">Product &amp; data consultant — Oda Fondación, Colombia</div>
+            <div class="ci-sub">Helping social organisations become investment-ready. MVP scoping, user journeys, and operational models for regenerative tourism and academic programmes.</div>
+          </div>
+        </div>
+        <div class="ci">
+          <div class="ci-dot gold"></div>
+          <div>
+            <div class="ci-title">Attending AI for Good Global Summit — Geneva</div>
+            <div class="ci-sub">Exploring where AI evaluation and data quality work intersects with conservation, climate, and humanitarian programmes.</div>
+          </div>
+        </div>
+        <div class="ci">
+          <div class="ci-dot"></div>
+          <div>
+            <div class="ci-title">Building geospatial analysis skills — QGIS &amp; Google Earth Engine</div>
+            <div class="ci-sub">Current project: river trash flux modelling for plastic ocean pollution, replicating the methodology of Lebreton et al. (2017) and Meijer et al. (2021) using open data.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider" id="d3"></div>
+
+    <div class="section" id="s-skills">
+      <div class="section-label">What I can do</div>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-headline">AI evaluation &amp; data quality</div>
+          <div class="skill-desc">Design labelling strategy, build quality frameworks, and measure what models are actually doing in production</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-headline">Data operations at scale</div>
+          <div class="skill-desc">Turn messy, distributed data into structured pipelines and clear reporting for senior stakeholders</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-headline">Product &amp; platform thinking</div>
+          <div class="skill-desc">Scope MVPs, map user journeys, and build operational models for early-stage organisations</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-headline">Lightweight tools &amp; automation</div>
+          <div class="skill-desc">Python, SQL, Qlik, Superset — practical tools built to solve real problems, not to impress engineers</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider" id="d4"></div>
+
+    <div class="section" id="s-project">
+      <div class="section-label">Project</div>
+      <div class="project-card" id="work">
+        <div class="project-tag">Live · 2025 · Colombia</div>
+        <div class="project-name">Oda Fondación</div>
+        <div class="project-desc">Working with a young Colombian foundation to help social organisations become investment-ready. Designed operational models for regenerative tourism and academic programmes, scoped the platform MVP, and mapped user journeys across stakeholder groups.</div>
+        <div class="pills">
+          <span class="pill">Product management</span>
+          <span class="pill">Social enterprise</span>
+          <span class="pill">Latin America</span>
+          <span class="pill">Investment readiness</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider" id="d5"></div>
+
+    <div class="section" id="s-looking">
+      <div class="section-label">Open to</div>
+      <div>
+        <p class="looking-intro">Looking for <strong>data and AI roles inside organisations working on conservation, climate, WASH, or social development</strong> — field-adjacent, hands-on, and ideally based in Latin America or the global south.</p>
+        <div class="looking-list">
+          <div class="looking-item"><span class="looking-arrow">→</span>Data and AI roles inside NGOs, foundations, or field organisations</div>
+          <div class="looking-item"><span class="looking-arrow">→</span>Collaborations where strong data operations or AI evaluation would unlock something</div>
+          <div class="looking-item"><span class="looking-arrow">→</span>UN agency programmes (UNDP, UNEP, WFP) with a data or innovation focus</div>
+          <div class="looking-item"><span class="looking-arrow">→</span>Mission-aligned roles where the impact is genuine, not peripheral</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider" id="d6"></div>
+
+    <div class="cta" id="contact">
+      <div>
+        <div class="cta-title">Let's talk</div>
+        <div class="cta-sub">
+          German &amp; UK citizen &middot; based in London<br>
+          German (native) &middot; English (fluent) &middot; Spanish (intermediate)<br>
+          Open to field-based &amp; remote roles
+        </div>
+      </div>
+      <div class="cta-buttons">
+        <a class="btn btn-primary" href="mailto:hanns@niedermark.de">✉ &nbsp;hanns@niedermark.de</a>
+        <a class="btn btn-secondary" href="https://linkedin.com/in/hniedermark" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="btn btn-secondary" href="hanns-niedermark-cv.pdf" download>Download CV ↓</a>
+      </div>
+    </div>
+
+    <footer class="footer" id="footer">
+      <span class="footer-copy">Hanns Niedermark &middot; 2025</span>
+      <span class="footer-loc">London &rarr; Latin America</span>
+    </footer>
+
+  </main>
+
+  <script>
+    const revealEls = document.querySelectorAll('.section, .divider, .cta, .footer');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
